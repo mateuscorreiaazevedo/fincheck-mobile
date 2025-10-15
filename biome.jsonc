@@ -1,0 +1,67 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.2.0/schema.json",
+  "extends": ["ultracite"],
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "single",
+      "semicolons": "always",
+      "jsxQuoteStyle": "double",
+      "arrowParentheses": "asNeeded"
+    }
+  },
+  "files": {
+    "includes": ["./src/**/*"],
+    "ignoreUnknown": true
+  },
+  "css": {
+    "formatter": {
+      "enabled": false
+    },
+    "linter": {
+      "enabled": false
+    }
+  },
+  "linter": {
+    "rules": {
+      "a11y": {
+        "noSvgWithoutTitle": "off"
+      },
+      "style": {
+        "useConst": {
+          "level": "error",
+          "fix": "safe",
+          "options": {}
+        },
+        "useReadonlyClassProperties": "off",
+        "noEnum": "off",
+        "useFilenamingConvention": "off",
+        "noParameterProperties": "off",
+        "noNonNullAssertion": "off",
+        "useDefaultSwitchClause": "off"
+      },
+      "nursery": {
+        "useImageSize": "off",
+        "useConsistentTypeDefinitions": "off"
+      },
+      "suspicious": {
+        "noEmptyBlockStatements": "off",
+        "noConsole": "error",
+        "noAssignInExpressions": "off"
+      },
+      "performance": {
+        "noImgElement": "off",
+        "useTopLevelRegex": "off",
+        "noBarrelFile": "off"
+      },
+      "correctness": {
+        "useHookAtTopLevel": "off",
+        "useExhaustiveDependencies": "off"
+      },
+      "complexity": {
+        "noStaticOnlyClass": "off",
+        "noThisInStatic": "off",
+        "noForEach": "off"
+      }
+    }
+  }
+}

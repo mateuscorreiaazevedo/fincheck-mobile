@@ -11,12 +11,21 @@
   "dependencies": {
     "expo": "~54.0.13",
     "expo-status-bar": "~3.0.8",
+    "nativewind": "^4.2.1",
     "react": "19.1.0",
-    "react-native": "0.81.4"
+    "react-native": "0.81.4",
+    "react-native-css-interop": "^0.2.1",
+    "react-native-reanimated": "~3.17.5",
+    "react-native-safe-area-context": "5.4.0",
+    "react-native-worklets": "^0.6.1"
   },
   "devDependencies": {
+    "@biomejs/biome": "2.2.6",
     "@types/react": "~19.1.0",
-    "typescript": "~5.9.2"
+    "tailwindcss": "^3.4.18",
+    "typescript": "~5.9.2",
+    "ultracite": "5.6.4"
   },
-  "private": true
+  "private": true,
+  "packageManager": "pnpm@10.18.2+sha512.9fb969fa749b3ade6035e0f109f0b8a60b5d08a1a87fdf72e337da90dcc93336e2280ca4e44f2358a649b83c17959e9993e777c2080879f3801e6f0d999ad3dd"
 }
