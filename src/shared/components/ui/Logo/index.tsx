@@ -1,4 +1,4 @@
-import type { IconProps } from '@shared/types';
+import type { IconProps } from '@shared/types/Icon';
 import { colors } from '@src/assets/styles/colors';
 import Svg, { Path } from 'react-native-svg';
 

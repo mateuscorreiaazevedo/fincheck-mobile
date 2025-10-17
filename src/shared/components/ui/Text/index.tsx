@@ -9,7 +9,7 @@ interface TextProps extends NativeTextProps {}
 export function Text({ className, ...props }: TextProps) {
   return (
     <NativeText
-      className={cn('font-sans-normal text-gray-8', className)}
+      className={cn('font-400 text-base text-gray-8', className)}
       {...props}
     />
   );
