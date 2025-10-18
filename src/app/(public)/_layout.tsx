@@ -2,6 +2,9 @@ import { Stack } from 'expo-router';
 
 export default function PublicLayout() {
   return (
-    <Stack initialRouteName="login" screenOptions={{ headerShown: false }} />
+    <Stack
+      initialRouteName="login/index"
+      screenOptions={{ headerShown: false }}
+    />
   );
 }
