@@ -39,6 +39,7 @@ export function Button({
           'size-12': size === 'icon',
           'h-fit w-fit p-0': size === 'content',
           'rounded-2xl': radius === 'default',
+          'rounded-lg': radius === 'small',
           'rounded-full': radius === 'full',
           'rounded-none': radius === 'none',
         },

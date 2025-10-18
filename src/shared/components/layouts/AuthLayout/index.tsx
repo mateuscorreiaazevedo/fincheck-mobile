@@ -29,15 +29,15 @@ export function AuthLayout({
     <Container>
       <KeyboardAvoidingView
         behavior={isAndroid ? 'height' : 'padding'}
-        className="flex-1 items-center justify-center gap-16"
+        className="flex-1 items-center justify-center gap-16 px-6"
       >
         <Logo color={colors.gray[5]} height={24} width={104} />
-        <View>
+        <View className="w-full">
           <View className="mb-12">
             <Text className="text-center font-700 text-2xl text-gray-9 tracking-[-1px]">
               {title}
             </Text>
-            <View className="flex-row gap-2">
+            <View className="flex-row justify-center gap-2">
               <Text className="text-gray-7 text-sm tracking-[-0.5px]">
                 {subtitle}
               </Text>

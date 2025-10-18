@@ -6,4 +6,4 @@ export type Variant =
   | 'danger'
   | 'destructive';
 export type Size = 'sm' | 'md' | 'lg' | 'icon' | 'content';
-export type Radius = 'default' | 'full' | 'none';
+export type Radius = 'default' | 'small' | 'full' | 'none';
