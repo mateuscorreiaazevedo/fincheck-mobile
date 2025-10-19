@@ -1,9 +1,9 @@
-import { Button } from '@shared/components/ui/Button';
-import { Container } from '@shared/components/ui/Container';
-import { Logo } from '@shared/components/ui/Logo';
-import { Text } from '@shared/components/ui/Text';
-import { isAndroid } from '@shared/utils/isAndroid';
-import { colors } from '@src/assets/styles/colors';
+import { colors } from '@assets/styles/colors';
+import { Button } from '@components/ui/Button';
+import { Container } from '@components/ui/Container';
+import { Logo } from '@components/ui/Logo';
+import { Text } from '@components/ui/Text';
+import { isAndroid } from '@utils/isAndroid';
 import { type Href, useRouter } from 'expo-router';
 import type { PropsWithChildren } from 'react';
 import { KeyboardAvoidingView, View } from 'react-native';
