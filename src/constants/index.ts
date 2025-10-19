@@ -1,1 +1,1 @@
-export { default as authNumberConstants } from './numberConstants';
+export { default as NUMBER_CONSTANTS } from './numberConstants';

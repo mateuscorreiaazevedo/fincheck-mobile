@@ -1,5 +1,5 @@
 import type { Radius, Size, Variant } from '@shared/types/Styles';
-import { cn } from '@shared/utils/cn';
+import { cn } from '@utils/cn';
 import { TouchableOpacity, type TouchableOpacityProps } from 'react-native';
 import { Text } from '../Text';
 

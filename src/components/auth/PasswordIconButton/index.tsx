@@ -1,7 +1,6 @@
-import { Button } from '@shared/components/ui/Button';
-import { EyeClosedIcon, EyeOpenedIcon } from '@shared/components/ui/icons';
-import { cn } from '@shared/utils/cn';
-import { colors } from '@src/assets/styles/colors';
+import { colors } from '@assets/styles/colors';
+import { Button, EyeClosedIcon, EyeOpenedIcon } from '@components/ui';
+import { cn } from '@utils/cn';
 
 interface PasswordIconButtonProps {
   onClick?: VoidFunction;

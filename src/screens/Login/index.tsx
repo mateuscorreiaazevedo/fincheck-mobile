@@ -10,15 +10,16 @@ export default function LoginScreen() {
     useLoginViewModel();
 
   return (
-    <AuthLayout
-      link={{
-        href: '/register',
-        label: 'Criar uma conta',
-      }}
-      subtitle="Novo por aqui?"
-      title="Entre em sua conta"
-    >
-      <View className="gap-2">
+    <AuthLayout>
+      <AuthLayout.Header
+        link={{
+          href: 'Register',
+          label: 'Criar uma conta',
+        }}
+        subtitle="Novo por aqui?"
+        title="Entre em sua conta"
+      />
+      <View className="w-full gap-2">
         <Controller
           control={control}
           name="email"

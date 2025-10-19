@@ -1,4 +1,4 @@
-import { authNumberConstants as nc } from '@constants';
+import { NUMBER_CONSTANTS as c } from '@constants';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -12,7 +12,7 @@ const schema = z.object({
   password: z
     .string()
     .nonempty('Senha é obrigatória.')
-    .min(nc.MIN_LENGTH_PASSWORD, {
+    .min(c.MIN_LENGTH_PASSWORD, {
       error: 'A senha deve ter no mínimo 8 caracteres',
     })
     .regex(/[A-Z]/, {

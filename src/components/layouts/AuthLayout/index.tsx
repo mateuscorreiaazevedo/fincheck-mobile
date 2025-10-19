@@ -1,62 +1,34 @@
 import { colors } from '@assets/styles/colors';
-import { Button } from '@components/ui/Button';
 import { Container } from '@components/ui/Container';
 import { Logo } from '@components/ui/Logo';
-import { Text } from '@components/ui/Text';
+import { NUMBER_CONSTANTS as c } from '@constants';
+import { useWatchKeyboard } from '@hooks';
 import { isAndroid } from '@utils/isAndroid';
-import { type Href, useRouter } from 'expo-router';
 import type { PropsWithChildren } from 'react';
 import { KeyboardAvoidingView, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { AuthHeader } from './AuthHeader';
 
-interface AuthLayoutProps {
-  title: string;
-  subtitle: string;
-  link: {
-    href: Href;
-    label: string;
-  };
-}
-
-export function AuthLayout({
-  children,
-  link,
-  subtitle,
-  title,
-}: PropsWithChildren<AuthLayoutProps>) {
-  const router = useRouter();
+export function AuthLayout({ children }: PropsWithChildren) {
+  const { bottom } = useSafeAreaInsets();
+  const { isKeyboardVisible } = useWatchKeyboard();
 
   return (
     <Container>
       <KeyboardAvoidingView
         behavior={isAndroid ? 'height' : 'padding'}
-        className="flex-1 items-center justify-center gap-16 px-6"
+        className="flex-1 items-center justify-center px-6"
+        style={{
+          gap: isKeyboardVisible
+            ? c.GAP_AUTH_LAYOUT - bottom
+            : c.GAP_AUTH_LAYOUT,
+        }}
       >
         <Logo color={colors.gray[5]} height={24} width={104} />
-        <View className="w-full">
-          <View className="mb-12">
-            <Text className="text-center font-700 text-2xl text-gray-9 tracking-[-1px]">
-              {title}
-            </Text>
-            <View className="flex-row justify-center gap-2">
-              <Text className="text-gray-7 text-sm tracking-[-0.5px]">
-                {subtitle}
-              </Text>
-
-              <Button
-                activeOpacity={0.7}
-                onPress={() => router.push(link.href)}
-                radius="none"
-                size="content"
-                variant="link"
-              >
-                {link.label}
-              </Button>
-            </View>
-          </View>
-
-          {children}
-        </View>
+        <View className="w-full">{children}</View>
       </KeyboardAvoidingView>
     </Container>
   );
 }
+
+AuthLayout.Header = AuthHeader;

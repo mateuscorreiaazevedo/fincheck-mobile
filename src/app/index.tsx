@@ -1,4 +1,5 @@
-import '@src/assets/styles/global.css';
+import 'react-native-gesture-handler';
+import '@assets/styles/global.css';
 
 import {
   DMSans_300Light,
@@ -8,15 +9,15 @@ import {
   DMSans_700Bold,
   useFonts,
 } from '@expo-google-fonts/dm-sans';
-import { Stack } from 'expo-router';
-
+import { NavigationContainer } from '@react-navigation/native';
+import { RouterNavigation } from '@routes';
 import { hideAsync, preventAutoHideAsync } from 'expo-splash-screen';
 import { useEffect } from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 preventAutoHideAsync();
 
-function InnerLayout() {
+export function App() {
   const [fontsLoaded, fontsError] = useFonts({
     DMSans_300Light,
     DMSans_400Regular,
@@ -24,7 +25,6 @@ function InnerLayout() {
     DMSans_600SemiBold,
     DMSans_700Bold,
   });
-  const isLogged = false;
 
   useEffect(() => {
     const isFontsReady = fontsLoaded || fontsError;
@@ -38,25 +38,10 @@ function InnerLayout() {
   }
 
   return (
-    <Stack
-      screenOptions={{
-        headerShown: false,
-      }}
-    >
-      <Stack.Protected guard={isLogged}>
-        <Stack.Screen name="(private)" />
-      </Stack.Protected>
-      <Stack.Protected guard={!isLogged}>
-        <Stack.Screen name="(public)" />
-      </Stack.Protected>
-    </Stack>
-  );
-}
-
-export default function RootLayout() {
-  return (
     <SafeAreaProvider>
-      <InnerLayout />
+      <NavigationContainer>
+        <RouterNavigation />
+      </NavigationContainer>
     </SafeAreaProvider>
   );
 }

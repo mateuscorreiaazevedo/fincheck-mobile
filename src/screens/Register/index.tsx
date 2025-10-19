@@ -5,14 +5,15 @@ import { View } from 'react-native';
 
 export default function RegisterScreen() {
   return (
-    <AuthLayout
-      link={{
-        href: '/login',
-        label: 'Cadastre-se',
-      }}
-      subtitle="Ainda não possui uma conta?"
-      title="Acessar conta"
-    >
+    <AuthLayout>
+      <AuthLayout.Header
+        link={{
+          href: 'Login',
+          label: 'Fazer login',
+        }}
+        subtitle="Já possui uma conta?"
+        title="Crie sua conta"
+      />
       <View className="gap-2">
         <Input placeholder="Nome" />
         <Input placeholder="Sobrenome" />

@@ -1,5 +1,5 @@
-import { cn } from '@shared/utils/cn';
-import { colors } from '@src/assets/styles/colors';
+import { colors } from '@assets/styles/colors';
+import { cn } from '@utils/cn';
 import type { ReactNode } from 'react';
 import { TextInput, type TextInputProps, View } from 'react-native';
 import { CrossCircleIcon } from '../icons';
