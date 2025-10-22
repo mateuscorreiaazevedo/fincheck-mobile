@@ -12,7 +12,7 @@ export default function LoginScreen() {
     onSubmit,
     showPassword,
     toggleShowPassword,
-    isPending,
+    isLogging,
   } = useLoginScreenViewModel();
 
   return (
@@ -67,7 +67,7 @@ export default function LoginScreen() {
             />
           )}
         />
-        <Button isLoading={isPending} onPress={onSubmit} radius="small">
+        <Button isLoading={isLogging} onPress={onSubmit} radius="small">
           Entrar
         </Button>
       </View>

@@ -4,7 +4,7 @@ import { useMutation } from '@tanstack/react-query';
 import { TokenHelper } from '@utils';
 
 export function useRegisterMutation() {
-  const { login } = useAuthentication();
+  const { authenticate } = useAuthentication();
 
   const mutation = useMutation({
     mutationFn: async (data: HttpRegisterRequestDto) =>
@@ -18,7 +18,7 @@ export function useRegisterMutation() {
         refreshTokenHelper.set(response.refreshToken),
       ]);
 
-      login();
+      authenticate();
     },
   });
 

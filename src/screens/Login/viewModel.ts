@@ -3,7 +3,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-import { useLogin } from './hooks/useLogin';
+import { useLoginMutation } from './hooks/useLoginMutation';
 
 const schema = z.object({
   email: z
@@ -34,7 +34,7 @@ type LoginFormData = z.infer<typeof schema>;
 
 export function useLoginScreenViewModel() {
   const [showPassword, setShowPassword] = useState(false);
-  const { isPending, onLogin } = useLogin();
+  const { isLogging, onLogin } = useLoginMutation();
   const { control, handleSubmit, formState, setError } = useForm<LoginFormData>(
     {
       resolver: zodResolver(schema),
@@ -64,7 +64,7 @@ export function useLoginScreenViewModel() {
     formState,
     onSubmit,
     showPassword,
-    isPending,
+    isLogging,
     toggleShowPassword,
   };
 }

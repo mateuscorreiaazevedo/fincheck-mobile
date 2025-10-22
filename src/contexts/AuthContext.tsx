@@ -10,9 +10,8 @@ import {
 interface AuthContextType {
   isAuthenticated: boolean;
   isLoading: boolean;
-  login(): void;
-  logout(): void;
-  register(): void;
+  authenticate(): void;
+  unAuthenticate(): void;
 }
 
 export const AuthContext = createContext({} as AuthContextType);
@@ -21,11 +20,11 @@ export function AuthProvider({ children }: PropsWithChildren) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [globalLoading, setGlobalLoading] = useState(true);
 
-  const login = useCallback(() => {
+  const authenticate = useCallback(() => {
     setIsAuthenticated(true);
   }, []);
 
-  const logout = useCallback(async () => {
+  const unAuthenticate = useCallback(async () => {
     setGlobalLoading(true);
     try {
       const accessTokenHelper = TokenHelper.setKey('accessTokenKey');
@@ -42,10 +41,6 @@ export function AuthProvider({ children }: PropsWithChildren) {
     } finally {
       setGlobalLoading(false);
     }
-  }, []);
-
-  const register = useCallback(() => {
-    setIsAuthenticated(true);
   }, []);
 
   useEffect(() => {
@@ -66,9 +61,8 @@ export function AuthProvider({ children }: PropsWithChildren) {
     <AuthContext.Provider
       value={{
         isAuthenticated,
-        login,
-        logout,
-        register,
+        authenticate,
+        unAuthenticate,
         isLoading: globalLoading,
       }}
     >

@@ -3,10 +3,10 @@ import { authService, type HttpLoginRequestDto } from '@services/auth';
 import { useMutation } from '@tanstack/react-query';
 import { TokenHelper } from '@utils';
 
-export function useLogin() {
-  const { login } = useAuthentication();
+export function useLoginMutation() {
+  const { authenticate } = useAuthentication();
 
-  const { mutateAsync, isPending } = useMutation({
+  const mutation = useMutation({
     mutationFn: async (data: HttpLoginRequestDto) => {
       const response = await authService.login(data);
 
@@ -21,12 +21,12 @@ export function useLogin() {
         refreshTokenHelper.set(response.refreshToken),
       ]);
 
-      login();
+      authenticate();
     },
   });
 
   return {
-    onLogin: mutateAsync,
-    isPending,
+    onLogin: mutation.mutateAsync,
+    isLogging: mutation.isPending,
   };
 }
