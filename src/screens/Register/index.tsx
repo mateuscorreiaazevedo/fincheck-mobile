@@ -25,7 +25,7 @@ export default function RegisterScreen() {
         subtitle="Já possui uma conta?"
         title="Crie sua conta"
       />
-      <View className="gap-2">
+      <View className="gap-4">
         {!!formState.errors.root?.message && (
           <FieldError error={formState.errors.root.message} />
         )}

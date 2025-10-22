@@ -25,7 +25,7 @@ export default function LoginScreen() {
         subtitle="Novo por aqui?"
         title="Entre em sua conta"
       />
-      <View className="w-full gap-2">
+      <View className="w-full gap-4">
         {!!formState.errors.root?.message && (
           <FieldError error={formState.errors.root.message} />
         )}
