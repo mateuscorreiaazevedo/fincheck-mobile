@@ -5,9 +5,7 @@
     "strictNullChecks": true,
     "baseUrl": ".",
     "paths": {
-      "@shared/*": ["./src/shared/*"],
-      "@features/*": ["./src/features/*"],
-      "@src/*": ["./src/*"]
+      "@*": ["./src/*"]
     }
   }
 }
