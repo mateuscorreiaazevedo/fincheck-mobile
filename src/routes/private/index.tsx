@@ -8,7 +8,11 @@ const PrivateStack = createNativeStackNavigator<PrivateRoutesSchema>();
 
 export function PrivateRoutes() {
   return (
-    <PrivateStack.Navigator>
+    <PrivateStack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
       <PrivateStack.Screen component={DashboardScreen} name="Dashboard" />
     </PrivateStack.Navigator>
   );

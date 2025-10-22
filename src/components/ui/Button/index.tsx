@@ -1,6 +1,11 @@
-import type { Radius, Size, Variant } from '@shared/types/Styles';
+import { colors } from '@assets/styles/colors';
+import type { Radius, Size, Variant } from '@types';
 import { cn } from '@utils/cn';
-import { TouchableOpacity, type TouchableOpacityProps } from 'react-native';
+import {
+  ActivityIndicator,
+  TouchableOpacity,
+  type TouchableOpacityProps,
+} from 'react-native';
 import { Text } from '../Text';
 
 interface ButtonProps extends TouchableOpacityProps {
@@ -8,6 +13,7 @@ interface ButtonProps extends TouchableOpacityProps {
   size?: Size;
   radius?: Radius;
   textClassName?: string;
+  isLoading?: boolean;
 }
 
 const ACTIVE_OPACITY = 0.7;
@@ -20,6 +26,8 @@ export function Button({
   radius = 'default',
   size = 'md',
   textClassName,
+  isLoading,
+  disabled,
   ...props
 }: ButtonProps) {
   return (
@@ -45,24 +53,28 @@ export function Button({
         },
         className
       )}
+      disabled={disabled || isLoading}
     >
-      <Text
-        className={cn(
-          'font-500',
-          {
-            'text-white': ['primary', 'danger'].includes(variant),
-            'text-gray-7': ['ghost', 'secondary'].includes(variant),
-            'text-sm text-teal-9': variant === 'link',
-            'text-red-8': variant === 'destructive',
-            'text-sm': size === 'sm',
-            'text-base': size === 'md',
-            'text-xl': size === 'lg',
-          },
-          textClassName
-        )}
-      >
-        {children}
-      </Text>
+      {isLoading && <ActivityIndicator color={colors.teal[0]} size={'small'} />}
+      {!isLoading && (
+        <Text
+          className={cn(
+            'font-500',
+            {
+              'text-white': ['primary', 'danger'].includes(variant),
+              'text-gray-7': ['ghost', 'secondary'].includes(variant),
+              'text-sm text-teal-9': variant === 'link',
+              'text-red-8': variant === 'destructive',
+              'text-sm': size === 'sm',
+              'text-base': size === 'md',
+              'text-xl': size === 'lg',
+            },
+            textClassName
+          )}
+        >
+          {children}
+        </Text>
+      )}
     </TouchableOpacity>
   );
 }

@@ -1,13 +1,19 @@
 import { PasswordIconButton } from '@components/auth';
 import { AuthLayout } from '@components/layouts';
-import { Button, Input } from '@components/ui';
+import { Button, FieldError, Input } from '@components/ui';
 import { Controller } from 'react-hook-form';
 import { View } from 'react-native';
 import { useLoginViewModel } from './viewModel';
 
 export default function LoginScreen() {
-  const { control, formState, onSubmit, showPassword, toggleShowPassword } =
-    useLoginViewModel();
+  const {
+    control,
+    formState,
+    onSubmit,
+    showPassword,
+    toggleShowPassword,
+    isPending,
+  } = useLoginViewModel();
 
   return (
     <AuthLayout>
@@ -20,6 +26,9 @@ export default function LoginScreen() {
         title="Entre em sua conta"
       />
       <View className="w-full gap-2">
+        {!!formState.errors.root?.message && (
+          <FieldError error={formState.errors.root.message} />
+        )}
         <Controller
           control={control}
           name="email"
@@ -60,6 +69,7 @@ export default function LoginScreen() {
         />
         <Button
           disabled={formState.isSubmitting}
+          isLoading={isPending}
           onPress={onSubmit}
           radius="small"
         >

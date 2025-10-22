@@ -1,8 +1,7 @@
-import { colors } from '@assets/styles/colors';
 import { cn } from '@utils/cn';
 import type { ReactNode } from 'react';
 import { TextInput, type TextInputProps, View } from 'react-native';
-import { CrossCircleIcon } from '../icons';
+import { FieldError } from '../FieldError';
 import { Text } from '../Text';
 
 interface InputProps extends TextInputProps {
@@ -41,12 +40,7 @@ export function Input({
           </View>
         )}
       </View>
-      {error && (
-        <View className="mt-1 flex-row items-center gap-1">
-          <CrossCircleIcon color={colors.red[8]} height={14} width={14} />
-          <Text className="text-red-8 text-xs">{error}</Text>
-        </View>
-      )}
+      {error && <FieldError className="mt-1" error={error} />}
     </View>
   );
 }

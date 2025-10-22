@@ -1,8 +1,8 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import LoginScreen from '@screens/Login';
 import { lazy } from 'react';
 import type { AuthRoutesSchema } from './AuthRoutesSchema';
 
+const LoginScreen = lazy(() => import('@screens/Login'));
 const RegisterScreen = lazy(() => import('@screens/Register'));
 
 const AuthStack = createNativeStackNavigator<AuthRoutesSchema>();

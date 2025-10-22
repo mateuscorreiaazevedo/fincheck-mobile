@@ -1,8 +1,10 @@
 import { AuthRoutes } from './auth';
 import { PrivateRoutes } from './private';
 
-export function RouterNavigation() {
-  const isAuthenticated = false;
+type RouterNavigationProps = {
+  isAuthenticated: boolean;
+};
 
+export function RouterNavigation({ isAuthenticated }: RouterNavigationProps) {
   return isAuthenticated ? <PrivateRoutes /> : <AuthRoutes />;
 }
