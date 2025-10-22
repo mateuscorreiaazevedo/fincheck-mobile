@@ -1,6 +1,5 @@
 import { NUMBER_CONSTANTS as c } from '@constants';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useAuthentication } from '@hooks/auth';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -35,7 +34,6 @@ type LoginFormData = z.infer<typeof schema>;
 
 export function useLoginScreenViewModel() {
   const [showPassword, setShowPassword] = useState(false);
-  const { login } = useAuthentication();
   const { isPending, onLogin } = useLogin();
   const { control, handleSubmit, formState, setError } = useForm<LoginFormData>(
     {
@@ -53,9 +51,6 @@ export function useLoginScreenViewModel() {
 
   const onSubmit = handleSubmit(async data => {
     await onLogin(data, {
-      onSuccess() {
-        login();
-      },
       onError(error) {
         setError('root', {
           message: error.message || 'Erro ao realizar login. Tente novamente.',
