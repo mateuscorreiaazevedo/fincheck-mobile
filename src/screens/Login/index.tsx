@@ -3,7 +3,7 @@ import { AuthLayout } from '@components/layouts';
 import { Button, FieldError, Input } from '@components/ui';
 import { Controller } from 'react-hook-form';
 import { View } from 'react-native';
-import { useLoginViewModel } from './viewModel';
+import { useLoginScreenViewModel } from './viewModel';
 
 export default function LoginScreen() {
   const {
@@ -13,7 +13,7 @@ export default function LoginScreen() {
     showPassword,
     toggleShowPassword,
     isPending,
-  } = useLoginViewModel();
+  } = useLoginScreenViewModel();
 
   return (
     <AuthLayout>
@@ -67,12 +67,7 @@ export default function LoginScreen() {
             />
           )}
         />
-        <Button
-          disabled={formState.isSubmitting}
-          isLoading={isPending}
-          onPress={onSubmit}
-          radius="small"
-        >
+        <Button isLoading={isPending} onPress={onSubmit} radius="small">
           Entrar
         </Button>
       </View>

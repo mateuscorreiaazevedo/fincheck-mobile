@@ -1,6 +1,8 @@
 import { Button, Text } from '@components/ui';
-import { useNavigate } from '@hooks';
+import { NUMBER_CONSTANTS as c } from '@constants';
+import { useNavigate, useWatchKeyboard } from '@hooks';
 import { View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 interface AuthHeaderProps {
   title: string;
@@ -13,9 +15,11 @@ interface AuthHeaderProps {
 
 export function AuthHeader({ title, subtitle, link }: AuthHeaderProps) {
   const { navigate } = useNavigate();
+  const { bottom } = useSafeAreaInsets();
+  const { isKeyboardVisible } = useWatchKeyboard();
 
   return (
-    <View className="mb-12">
+    <View style={{ marginBottom: isKeyboardVisible ? bottom : c.GAP_LG }}>
       <Text className="text-center font-700 text-2xl text-gray-9 tracking-[-1px]">
         {title}
       </Text>

@@ -33,7 +33,7 @@ const schema = z.object({
 
 type LoginFormData = z.infer<typeof schema>;
 
-export function useLoginViewModel() {
+export function useLoginScreenViewModel() {
   const [showPassword, setShowPassword] = useState(false);
   const { login } = useAuthentication();
   const { isPending, onLogin } = useLogin();

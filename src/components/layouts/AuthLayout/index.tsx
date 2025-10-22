@@ -10,7 +10,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { AuthHeader } from './AuthHeader';
 
 export function AuthLayout({ children }: PropsWithChildren) {
-  const { bottom } = useSafeAreaInsets();
+  const { top } = useSafeAreaInsets();
   const { isKeyboardVisible } = useWatchKeyboard();
 
   return (
@@ -19,9 +19,7 @@ export function AuthLayout({ children }: PropsWithChildren) {
         behavior={isAndroid ? 'height' : 'padding'}
         className="flex-1 items-center justify-center px-6"
         style={{
-          gap: isKeyboardVisible
-            ? c.GAP_AUTH_LAYOUT - bottom
-            : c.GAP_AUTH_LAYOUT,
+          gap: isKeyboardVisible ? c.GAP_XL - top : c.GAP_XL,
         }}
       >
         <Logo color={colors.gray[5]} height={24} width={104} />
