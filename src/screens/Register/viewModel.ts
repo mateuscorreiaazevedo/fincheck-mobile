@@ -3,6 +3,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useCallback, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import z from 'zod';
+import { useRegisterMutation } from './hooks/useRegisterMutation';
 
 const MIN_LENGTH = c.MIN_LENGTH_NAME;
 
@@ -46,20 +47,25 @@ type RegisterFormData = z.infer<typeof schema>;
 
 export function useRegisterScreenViewModel() {
   const [showPassword, setShowPassword] = useState(false);
-  const { control, formState, handleSubmit } = useForm<RegisterFormData>({
-    resolver: zodResolver(schema),
-    defaultValues: {
-      firstName: '',
-      lastName: '',
-      email: '',
-      password: '',
-    },
-  });
+  const { isRegistering, onRegister } = useRegisterMutation();
+  const { control, formState, handleSubmit, setError } =
+    useForm<RegisterFormData>({
+      resolver: zodResolver(schema),
+      defaultValues: {
+        firstName: '',
+        lastName: '',
+        email: '',
+        password: '',
+      },
+    });
 
-  const handleRegister = handleSubmit(data => {
-    // biome-ignore lint/suspicious/noConsole: test
-    console.log(data);
-  });
+  const handleRegister = handleSubmit(data =>
+    onRegister(data, {
+      onError(error) {
+        setError('root', { message: error.message });
+      },
+    })
+  );
 
   const togglePasswordVisibility = useCallback(() => {
     setShowPassword(prevState => !prevState);
@@ -69,6 +75,7 @@ export function useRegisterScreenViewModel() {
     control,
     formState,
     showPassword,
+    isRegistering,
     handleRegister,
     togglePasswordVisibility,
   };

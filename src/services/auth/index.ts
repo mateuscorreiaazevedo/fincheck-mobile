@@ -1,2 +1,4 @@
 export * from './AuthService';
-export * from './HttpLoginDtos';
+export * from './types/HttpAuthResponseDto';
+export * from './types/HttpLoginRequestDto';
+export * from './types/HttpRegisterRequestDto';

@@ -1,13 +1,19 @@
 import { PasswordIconButton } from '@components/auth';
 import { AuthLayout } from '@components/layouts';
-import { Button, Input } from '@components/ui';
+import { Button, FieldError, Input } from '@components/ui';
 import { Controller } from 'react-hook-form';
 import { View } from 'react-native';
 import { useRegisterScreenViewModel } from './viewModel';
 
 export default function RegisterScreen() {
-  const { control, togglePasswordVisibility, showPassword, handleRegister } =
-    useRegisterScreenViewModel();
+  const {
+    control,
+    togglePasswordVisibility,
+    showPassword,
+    handleRegister,
+    formState,
+    isRegistering,
+  } = useRegisterScreenViewModel();
 
   return (
     <AuthLayout>
@@ -20,6 +26,9 @@ export default function RegisterScreen() {
         title="Crie sua conta"
       />
       <View className="gap-2">
+        {!!formState.errors.root?.message && (
+          <FieldError error={formState.errors.root.message} />
+        )}
         <Controller
           control={control}
           name="firstName"
@@ -82,7 +91,11 @@ export default function RegisterScreen() {
             />
           )}
         />
-        <Button onPress={handleRegister} radius="small">
+        <Button
+          isLoading={isRegistering}
+          onPress={handleRegister}
+          radius="small"
+        >
           Criar conta
         </Button>
       </View>
