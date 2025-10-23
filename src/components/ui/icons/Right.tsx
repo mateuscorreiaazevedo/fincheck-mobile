@@ -1,5 +1,5 @@
 import { colors } from '@assets/styles/colors';
-import type { IconProps } from '@shared/types/Icon';
+import type { IconProps } from '@types';
 import { memo } from 'react';
 import Svg, { Path } from 'react-native-svg';
 
