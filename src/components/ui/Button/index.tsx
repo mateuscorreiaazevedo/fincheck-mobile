@@ -1,6 +1,7 @@
 import { colors } from '@assets/styles/colors';
 import type { Radius, Size, Variant } from '@types';
 import { cn } from '@utils/cn';
+import type { ReactNode } from 'react';
 import {
   ActivityIndicator,
   TouchableOpacity,
@@ -14,6 +15,7 @@ interface ButtonProps extends TouchableOpacityProps {
   radius?: Radius;
   textClassName?: string;
   isLoading?: boolean;
+  endIcon?: ReactNode;
 }
 
 const ACTIVE_OPACITY = 0.7;
@@ -28,6 +30,7 @@ export function Button({
   textClassName,
   isLoading,
   disabled,
+  endIcon,
   ...props
 }: ButtonProps) {
   return (
@@ -35,7 +38,7 @@ export function Button({
       {...props}
       activeOpacity={activeOpacity ?? ACTIVE_OPACITY}
       className={cn(
-        'items-center justify-center disabled:opacity-50',
+        'flex-row items-center justify-center disabled:opacity-50',
         {
           'bg-teal-9': variant === 'primary',
           'bg-gray-2': variant === 'secondary',
@@ -57,23 +60,26 @@ export function Button({
     >
       {isLoading && <ActivityIndicator color={colors.teal[0]} size={'small'} />}
       {!isLoading && (
-        <Text
-          className={cn(
-            'font-500',
-            {
-              'text-white': ['primary', 'danger'].includes(variant),
-              'text-gray-7': ['ghost', 'secondary'].includes(variant),
-              'text-sm text-teal-9': variant === 'link',
-              'text-red-8': variant === 'destructive',
-              'text-sm': size === 'sm',
-              'text-base': size === 'md',
-              'text-xl': size === 'lg',
-            },
-            textClassName
-          )}
-        >
-          {children}
-        </Text>
+        <>
+          <Text
+            className={cn(
+              'font-500',
+              {
+                'text-white': ['primary', 'danger'].includes(variant),
+                'text-gray-7': ['ghost', 'secondary'].includes(variant),
+                'text-sm text-teal-9': variant === 'link',
+                'text-red-8': variant === 'destructive',
+                'text-sm': size === 'sm',
+                'text-base': size === 'md',
+                'text-xl': size === 'lg',
+              },
+              textClassName
+            )}
+          >
+            {children}
+          </Text>
+          {endIcon}
+        </>
       )}
     </TouchableOpacity>
   );
