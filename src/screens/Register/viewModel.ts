@@ -53,5 +53,6 @@ export function useRegisterScreenViewModel() {
     goToNextStep,
     goToPrevStep,
     isRegistering,
+    values,
   };
 }

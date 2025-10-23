@@ -24,12 +24,13 @@ export type StepPersonalDataRegisterFormData = z.infer<typeof schema>;
 
 export function useRegisterStepPersonalDataViewModel({
   onAction,
+  defaultValues,
 }: RegisterFormStepArgs<StepPersonalDataRegisterFormData>) {
   const { control, handleSubmit } = useForm<StepPersonalDataRegisterFormData>({
     resolver: zodResolver(schema),
     defaultValues: {
-      firstName: '',
-      lastName: '',
+      firstName: defaultValues?.firstName ?? '',
+      lastName: defaultValues?.lastName ?? '',
     },
   });
 

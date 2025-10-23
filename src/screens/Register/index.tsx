@@ -6,11 +6,22 @@ import { RegisterStepPersonalData } from './components/StepPersonalData';
 import { useRegisterScreenViewModel } from './viewModel';
 
 export default function RegisterScreen() {
-  const { goToNextStep, goToPrevStep, currentStep, isRegistering, error } =
-    useRegisterScreenViewModel();
+  const {
+    goToNextStep,
+    goToPrevStep,
+    currentStep,
+    isRegistering,
+    error,
+    values,
+  } = useRegisterScreenViewModel();
 
   const steps: Record<number, JSX.Element> = {
-    0: <RegisterStepPersonalData onAction={goToNextStep} />,
+    0: (
+      <RegisterStepPersonalData
+        defaultValues={values}
+        onAction={goToNextStep}
+      />
+    ),
     1: (
       <RegisterStepAccessData
         isLoading={isRegistering}
