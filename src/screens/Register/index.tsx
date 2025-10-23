@@ -1,19 +1,24 @@
-import { PasswordIconButton } from '@components/auth';
 import { AuthLayout } from '@components/layouts';
-import { Button, FieldError, Input } from '@components/ui';
-import { Controller } from 'react-hook-form';
-import { View } from 'react-native';
+import { FieldError } from '@components/ui';
+import type { JSX } from 'react';
+import { RegisterStepAccessData } from './components/StepAccessData';
+import { RegisterStepPersonalData } from './components/StepPersonalData';
 import { useRegisterScreenViewModel } from './viewModel';
 
 export default function RegisterScreen() {
-  const {
-    control,
-    togglePasswordVisibility,
-    showPassword,
-    handleRegister,
-    formState,
-    isRegistering,
-  } = useRegisterScreenViewModel();
+  const { goToNextStep, goToPrevStep, currentStep, isRegistering, error } =
+    useRegisterScreenViewModel();
+
+  const steps: Record<number, JSX.Element> = {
+    0: <RegisterStepPersonalData onAction={goToNextStep} />,
+    1: (
+      <RegisterStepAccessData
+        isLoading={isRegistering}
+        onAction={goToNextStep}
+        onPrevStep={goToPrevStep}
+      />
+    ),
+  };
 
   return (
     <AuthLayout>
@@ -25,80 +30,8 @@ export default function RegisterScreen() {
         subtitle="Já possui uma conta?"
         title="Crie sua conta"
       />
-      <View className="gap-4">
-        {!!formState.errors.root?.message && (
-          <FieldError error={formState.errors.root.message} />
-        )}
-        <Controller
-          control={control}
-          name="firstName"
-          render={({ field, fieldState }) => (
-            <Input
-              error={fieldState.error?.message}
-              onChangeText={field.onChange}
-              placeholder="Nome"
-              value={field.value}
-            />
-          )}
-        />
-        <Controller
-          control={control}
-          name="lastName"
-          render={({ field, fieldState }) => (
-            <Input
-              error={fieldState.error?.message}
-              onChangeText={field.onChange}
-              placeholder="Sobrenome"
-              value={field.value}
-            />
-          )}
-        />
-        <Controller
-          control={control}
-          name="email"
-          render={({ field, fieldState }) => (
-            <Input
-              autoCapitalize="none"
-              autoComplete="email"
-              autoCorrect={false}
-              error={fieldState.error?.message}
-              keyboardType="email-address"
-              onChangeText={field.onChange}
-              placeholder="E-mail"
-              value={field.value}
-            />
-          )}
-        />
-        <Controller
-          control={control}
-          name="password"
-          render={({ field, fieldState }) => (
-            <Input
-              autoCapitalize="none"
-              autoComplete="password"
-              autoCorrect={false}
-              endComponent={
-                <PasswordIconButton
-                  onClick={togglePasswordVisibility}
-                  visible={showPassword}
-                />
-              }
-              error={fieldState.error?.message}
-              onChangeText={field.onChange}
-              placeholder="Senha"
-              secureTextEntry={!showPassword}
-              value={field.value}
-            />
-          )}
-        />
-        <Button
-          isLoading={isRegistering}
-          onPress={handleRegister}
-          radius="small"
-        >
-          Criar conta
-        </Button>
-      </View>
+      {error && <FieldError className="mb-2" error={error} />}
+      {steps[currentStep]}
     </AuthLayout>
   );
 }

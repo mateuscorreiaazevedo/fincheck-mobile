@@ -1,82 +1,57 @@
-import { NUMBER_CONSTANTS as c } from '@constants';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useCallback, useState } from 'react';
-import { useForm } from 'react-hook-form';
-import z from 'zod';
+import type { HttpRegisterRequestDto } from '@services/auth';
+import { useState } from 'react';
+import type { StepPersonalDataRegisterFormData } from './components/StepPersonalData/viewModel';
 import { useRegisterMutation } from './hooks/useRegisterMutation';
 
-const MIN_LENGTH = c.MIN_LENGTH_NAME;
-
-const schema = z.object({
-  firstName: z
-    .string()
-    .nonempty('Nome é obrigatório.')
-    .min(MIN_LENGTH, `O nome deve ter no mínimo ${MIN_LENGTH} caracteres.`),
-  lastName: z
-    .string()
-    .nonempty('Sobrenome é obrigatório.')
-    .min(
-      MIN_LENGTH,
-      `O sobrenome deve ter no mínimo ${MIN_LENGTH} caracteres.`
-    ),
-  email: z
-    .string()
-    .nonempty('E-mail é obrigatório.')
-    .regex(/^[^\s@]+@[^\s@]+\.[^\s@]+$/, 'E-mail inválido.'),
-  password: z
-    .string()
-    .nonempty('Senha é obrigatória.')
-    .min(c.MIN_LENGTH_PASSWORD, {
-      error: 'A senha deve ter no mínimo 8 caracteres',
-    })
-    .regex(/[A-Z]/, {
-      error: 'A senha deve conter no mínimo 1 caractere maiúsculo',
-    })
-    .regex(/[a-z]/, {
-      error: 'A senha deve conter no mínimo 1 caractere minúsculo',
-    })
-    .regex(/[0-9]/, {
-      error: 'A senha deve conter no mínimo 1 número',
-    })
-    .regex(/[^a-zA-Z0-9]/, {
-      error: 'A senha deve conter no mínimo 1 caractere especial',
-    }),
-});
-
-type RegisterFormData = z.infer<typeof schema>;
-
 export function useRegisterScreenViewModel() {
-  const [showPassword, setShowPassword] = useState(false);
+  const [currentStep, setCurrentStep] = useState(0);
   const { isRegistering, onRegister } = useRegisterMutation();
-  const { control, formState, handleSubmit, setError } =
-    useForm<RegisterFormData>({
-      resolver: zodResolver(schema),
-      defaultValues: {
-        firstName: '',
-        lastName: '',
-        email: '',
-        password: '',
-      },
-    });
+  const [error, setError] = useState<string | null>(null);
+  const [values, setValues] = useState<StepPersonalDataRegisterFormData>({
+    firstName: '',
+    lastName: '',
+  });
 
-  const handleRegister = handleSubmit(data =>
-    onRegister(data, {
-      onError(error) {
-        setError('root', { message: error.message });
-      },
-    })
-  );
+  const goToNextStep = (data: Partial<HttpRegisterRequestDto>) => {
+    if (currentStep === 0) {
+      setCurrentStep(prev => prev + 1);
+      setValues({
+        firstName: data.firstName ?? '',
+        lastName: data.lastName ?? '',
+      });
+      return;
+    }
 
-  const togglePasswordVisibility = useCallback(() => {
-    setShowPassword(prevState => !prevState);
-  }, []);
+    onRegister(
+      {
+        firstName: values.firstName,
+        lastName: values.lastName,
+        email: data.email ?? '',
+        password: data.password ?? '',
+      },
+      {
+        onSuccess() {
+          setError(null);
+        },
+        onError(err) {
+          setError(err.message);
+        },
+      }
+    );
+  };
+
+  const goToPrevStep = () => {
+    if (currentStep === 0) {
+      return;
+    }
+    setCurrentStep(prev => prev - 1);
+  };
 
   return {
-    control,
-    formState,
-    showPassword,
+    error,
+    currentStep,
+    goToNextStep,
+    goToPrevStep,
     isRegistering,
-    handleRegister,
-    togglePasswordVisibility,
   };
 }

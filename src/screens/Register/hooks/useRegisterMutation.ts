@@ -23,7 +23,7 @@ export function useRegisterMutation() {
   });
 
   return {
-    onRegister: mutation.mutateAsync,
+    onRegister: mutation.mutate,
     isRegistering: mutation.isPending,
   };
 }
