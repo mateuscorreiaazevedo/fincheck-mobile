@@ -18,7 +18,7 @@ interface ButtonProps extends TouchableOpacityProps {
   endIcon?: ReactNode;
 }
 
-const ACTIVE_OPACITY = 0.7;
+export const ACTIVE_OPACITY = 0.7;
 
 export function Button({
   children,
