@@ -25,11 +25,11 @@ const queryClient = new QueryClient();
 export function App() {
   return (
     <SafeAreaProvider>
-      <AuthProvider>
-        <QueryClientProvider client={queryClient}>
+      <QueryClientProvider client={queryClient}>
+        <AuthProvider>
           <InnerApp />
-        </QueryClientProvider>
-      </AuthProvider>
+        </AuthProvider>
+      </QueryClientProvider>
       <StatusBar style="auto" />
     </SafeAreaProvider>
   );

@@ -2,6 +2,7 @@ import { HttpClientService } from '@services/api';
 import { httpResponseHandler } from '@utils';
 import type { HttpAuthResponseDto } from './types/HttpAuthResponseDto';
 import type { HttpLoginRequestDto } from './types/HttpLoginRequestDto';
+import type { HttpMeResponseDto } from './types/HttpMeResponseDto';
 import type { HttpRegisterRequestDto } from './types/HttpRegisterRequestDto';
 
 class HttpAuthService extends HttpClientService {
@@ -17,6 +18,7 @@ class HttpAuthService extends HttpClientService {
 
     return httpResponseHandler(response);
   }
+
   async register(data: HttpRegisterRequestDto): Promise<HttpAuthResponseDto> {
     const response = await this.request<HttpAuthResponseDto>({
       url: '/auth/signup',
@@ -25,6 +27,14 @@ class HttpAuthService extends HttpClientService {
       headers: {
         'x-client-type': 'mobile',
       },
+    });
+
+    return httpResponseHandler(response);
+  }
+
+  async getMe(): Promise<HttpMeResponseDto> {
+    const response = await this.request<HttpMeResponseDto>({
+      url: '/users/me',
     });
 
     return httpResponseHandler(response);
