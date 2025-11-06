@@ -25,6 +25,7 @@
     "expo-router": "~6.0.12",
     "expo-splash-screen": "~31.0.10",
     "expo-status-bar": "~3.0.8",
+    "intl": "^1.2.5",
     "nativewind": "^4.2.1",
     "react": "19.1.0",
     "react-hook-form": "^7.65.0",

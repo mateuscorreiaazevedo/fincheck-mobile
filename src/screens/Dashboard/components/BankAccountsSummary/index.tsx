@@ -1,5 +1,6 @@
 import { colors } from '@assets/styles/colors';
 import { Text } from '@components/ui';
+import { formatCurrencyHelper } from '@utils';
 import { ActivityIndicator, View } from 'react-native';
 import { BankAccountsSlider } from './BankAccountsSlider';
 import { ToggleVisibility } from './ToggleVisibility';
@@ -22,7 +23,7 @@ export function BankAccountsSummary() {
             <Text className="text-base text-white">Saldo total</Text>
             <View className="flex-row items-center gap-2">
               <Text className="mt-1 font-700 text-3xl text-white">
-                {totalBalanceInCents}
+                {formatCurrencyHelper(totalBalanceInCents)}
               </Text>
               <ToggleVisibility />
             </View>
