@@ -1,4 +1,4 @@
-import { useGetMeQuery } from '@hooks/auth';
+import { useGetMeQuery } from '@hooks/auth/useGetMeQuery';
 import type { HttpMeResponseDto } from '@services/auth';
 import { TokenHelper } from '@utils';
 import {
@@ -34,13 +34,14 @@ export function AuthProvider({ children }: PropsWithChildren) {
 
   const authenticate = useCallback(() => {
     setIsAuthenticated(true);
+
     refetchQuery();
   }, []);
 
   const unAuthenticate = useCallback(async () => {
     try {
-      const accessTokenHelper = TokenHelper.setKey('accessTokenKey');
-      const refreshTokenHelper = TokenHelper.setKey('refreshTokenKey');
+      const accessTokenHelper = TokenHelper.key('accessTokenKey');
+      const refreshTokenHelper = TokenHelper.key('refreshTokenKey');
 
       await Promise.all([
         accessTokenHelper.remove(),

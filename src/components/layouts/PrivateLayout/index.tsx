@@ -1,6 +1,6 @@
 import { colors } from '@assets/styles/colors';
 import { ACTIVE_OPACITY, Logo, Text } from '@components/ui';
-import { useAuthentication } from '@hooks/auth';
+import { useAuthentication } from '@hooks/auth/useAuthentication';
 import { StringBuilder } from '@utils';
 import type { PropsWithChildren } from 'react';
 import { ScrollView, TouchableOpacity, View } from 'react-native';
@@ -27,7 +27,7 @@ export function PrivateLayout({ children }: PropsWithChildren) {
         <Logo color={colors.teal[9]} height={24} width={106} />
         <TouchableOpacity
           activeOpacity={ACTIVE_OPACITY}
-          className="size-12 items-center justify-center rounded-full bg-teal-0"
+          className="size-12 items-center justify-center rounded-full border border-teal-1 bg-teal-0"
           onPress={unAuthenticate}
         >
           <Text className="text-sm text-teal-9">

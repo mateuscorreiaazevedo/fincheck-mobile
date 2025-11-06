@@ -1,5 +1,6 @@
 import { env } from '@config/env';
-import { TokenHelper } from '@utils';
+import type { HttpAuthResponseDto } from '@services/auth';
+import { httpResponseHandler, TokenHelper } from '@utils';
 import axios, {
   type AxiosError,
   type AxiosInstance,
@@ -28,7 +29,7 @@ export class HttpClientService {
 
     this.instance.interceptors.request.use(
       async config => {
-        const tokenHelper = TokenHelper.setKey('accessTokenKey');
+        const tokenHelper = TokenHelper.key('accessTokenKey');
         const accessToken = await tokenHelper.get();
 
         if (accessToken) {
@@ -71,14 +72,21 @@ export class HttpClientService {
           this.isRefreshing = true;
 
           try {
-            const refreshToken =
-              await TokenHelper.setKey('refreshTokenKey').get();
+            const accessTokenHelper = TokenHelper.key('accessTokenKey');
+            const refreshTokenHelper = TokenHelper.key('refreshTokenKey');
+            const refreshToken = await refreshTokenHelper.get();
 
             if (!refreshToken) {
               throw new Error('No refresh token available');
             }
 
-            await this.refreshToken(refreshToken);
+            const { accessToken, refreshToken: newRefreshToken } =
+              await this.refreshToken(refreshToken);
+
+            await Promise.all([
+              accessTokenHelper.set(accessToken),
+              refreshTokenHelper.set(newRefreshToken),
+            ]);
 
             this.failedQueue.forEach(({ config, resolve }) => {
               resolve(this.instance(config));
@@ -112,7 +120,10 @@ export class HttpClientService {
         url,
         method,
         data: body,
-        headers,
+        headers: {
+          'x-client-type': 'mobile',
+          ...headers,
+        },
         params,
       });
     } catch (err) {
@@ -131,13 +142,17 @@ export class HttpClientService {
     };
   }
 
-  private async refreshToken(refreshToken: string) {
-    await this.request({
+  private async refreshToken(
+    refreshToken: string
+  ): Promise<HttpAuthResponseDto> {
+    const response = await this.request<HttpAuthResponseDto>({
       url: '/auth/refresh',
       method: 'POST',
       body: {
         refreshToken,
       },
     });
+
+    return httpResponseHandler(response);
   }
 }

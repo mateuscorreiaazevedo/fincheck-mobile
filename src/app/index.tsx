@@ -1,6 +1,6 @@
 import 'react-native-gesture-handler';
 import '@assets/styles/global.css';
-import { AuthProvider } from '@contexts';
+import { AuthProvider } from '@contexts/AuthContext';
 import {
   DMSans_300Light,
   DMSans_400Regular,
@@ -9,7 +9,7 @@ import {
   DMSans_700Bold,
   useFonts,
 } from '@expo-google-fonts/dm-sans';
-import { useAuthentication } from '@hooks/auth';
+import { useAuthentication } from '@hooks/auth/useAuthentication';
 import { NavigationContainer } from '@react-navigation/native';
 import { RouterNavigation } from '@routes';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';

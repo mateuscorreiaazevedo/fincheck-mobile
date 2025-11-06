@@ -11,9 +11,6 @@ class HttpAuthService extends HttpClientService {
       url: '/auth/signin',
       method: 'POST',
       body: data,
-      headers: {
-        'x-client-type': 'mobile',
-      },
     });
 
     return httpResponseHandler(response);
@@ -24,9 +21,6 @@ class HttpAuthService extends HttpClientService {
       url: '/auth/signup',
       method: 'POST',
       body: data,
-      headers: {
-        'x-client-type': 'mobile',
-      },
     });
 
     return httpResponseHandler(response);

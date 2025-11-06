@@ -1,4 +1,4 @@
-import { useAuthentication } from '@hooks/auth';
+import { useAuthentication } from '@hooks/auth/useAuthentication';
 import { authService, type HttpRegisterRequestDto } from '@services/auth';
 import { useMutation } from '@tanstack/react-query';
 import { TokenHelper } from '@utils';
@@ -10,8 +10,8 @@ export function useRegisterMutation() {
     mutationFn: async (data: HttpRegisterRequestDto) =>
       authService.register(data),
     onSuccess: async response => {
-      const accessTokenHelper = TokenHelper.setKey('accessTokenKey');
-      const refreshTokenHelper = TokenHelper.setKey('refreshTokenKey');
+      const accessTokenHelper = TokenHelper.key('accessTokenKey');
+      const refreshTokenHelper = TokenHelper.key('refreshTokenKey');
 
       await Promise.all([
         accessTokenHelper.set(response.accessToken),

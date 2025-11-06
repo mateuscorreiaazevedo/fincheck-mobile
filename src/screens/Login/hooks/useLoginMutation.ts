@@ -1,4 +1,4 @@
-import { useAuthentication } from '@hooks/auth';
+import { useAuthentication } from '@hooks/auth/useAuthentication';
 import { authService, type HttpLoginRequestDto } from '@services/auth';
 import { useMutation } from '@tanstack/react-query';
 import { TokenHelper } from '@utils';
@@ -13,8 +13,8 @@ export function useLoginMutation() {
       return response;
     },
     async onSuccess(response) {
-      const accessTokenHelper = TokenHelper.setKey('accessTokenKey');
-      const refreshTokenHelper = TokenHelper.setKey('refreshTokenKey');
+      const accessTokenHelper = TokenHelper.key('accessTokenKey');
+      const refreshTokenHelper = TokenHelper.key('refreshTokenKey');
 
       await Promise.all([
         accessTokenHelper.set(response.accessToken),
