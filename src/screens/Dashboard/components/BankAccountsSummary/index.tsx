@@ -6,7 +6,8 @@ import { ToggleVisibility } from './ToggleVisibility';
 import { useBankAccountsSummaryViewModel } from './viewModel';
 
 export function BankAccountsSummary() {
-  const { isLoading } = useBankAccountsSummaryViewModel();
+  const { isLoading, bankAccounts, hasBankAccounts, totalBalanceInCents } =
+    useBankAccountsSummaryViewModel();
 
   return (
     <View className="mb-8 flex-1 rounded-2xl bg-teal-9 px-4 py-8">
@@ -21,13 +22,16 @@ export function BankAccountsSummary() {
             <Text className="text-base text-white">Saldo total</Text>
             <View className="flex-row items-center gap-2">
               <Text className="mt-1 font-700 text-3xl text-white">
-                R$ 12.345,67
+                {totalBalanceInCents}
               </Text>
               <ToggleVisibility />
             </View>
           </View>
 
-          <BankAccountsSlider />
+          <BankAccountsSlider
+            bankAccounts={bankAccounts}
+            hasBankAccounts={hasBankAccounts}
+          />
         </>
       )}
     </View>

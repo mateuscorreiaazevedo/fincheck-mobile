@@ -1,17 +1,23 @@
+import type { BankAccountModel } from '@models/bank-accounts';
 import { FlatList, View } from 'react-native';
 import { CreateAccountButton } from './CreateAccountButton';
 import { BankAccountsSliderItem } from './SliderItem';
-import { useBankAccountsSliderViewModel } from './viewModel';
 
-export function BankAccountsSlider() {
-  const { bankAccounts, hasBankAccounts } = useBankAccountsSliderViewModel();
+interface BankAccountsSliderProps {
+  bankAccounts: BankAccountModel[];
+  hasBankAccounts: boolean;
+}
 
+export function BankAccountsSlider({
+  bankAccounts,
+  hasBankAccounts,
+}: BankAccountsSliderProps) {
   return (
     <View>
       {!hasBankAccounts && <CreateAccountButton />}
       {hasBankAccounts && (
         <FlatList
-          contentContainerClassName="gap-2"
+          contentContainerClassName="gap-2 items-center"
           data={bankAccounts}
           horizontal
           keyExtractor={item => item.id}
