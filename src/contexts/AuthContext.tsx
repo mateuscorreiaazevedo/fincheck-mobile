@@ -1,5 +1,5 @@
 import { useGetMeQuery } from '@hooks/auth/useGetMeQuery';
-import type { HttpMeResponseDto } from '@services/auth';
+import type { UserModel } from '@models/user';
 import { TokenHelper } from '@utils';
 import {
   createContext,
@@ -16,7 +16,7 @@ interface AuthContextType {
   isLoading: boolean;
   authenticate(): void;
   unAuthenticate(): void;
-  authenticatedUser?: HttpMeResponseDto;
+  authenticatedUser?: UserModel;
 }
 
 export const AuthContext = createContext({} as AuthContextType);

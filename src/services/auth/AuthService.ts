@@ -1,8 +1,8 @@
+import type { UserModel } from '@models/user';
 import { HttpClientService } from '@services/api';
 import { httpResponseHandler } from '@utils';
 import type { HttpAuthResponseDto } from './types/HttpAuthResponseDto';
 import type { HttpLoginRequestDto } from './types/HttpLoginRequestDto';
-import type { HttpMeResponseDto } from './types/HttpMeResponseDto';
 import type { HttpRegisterRequestDto } from './types/HttpRegisterRequestDto';
 
 class HttpAuthService extends HttpClientService {
@@ -26,8 +26,8 @@ class HttpAuthService extends HttpClientService {
     return httpResponseHandler(response);
   }
 
-  async getMe(): Promise<HttpMeResponseDto> {
-    const response = await this.request<HttpMeResponseDto>({
+  async getMe(): Promise<UserModel> {
+    const response = await this.request<UserModel>({
       url: '/users/me',
     });
 
